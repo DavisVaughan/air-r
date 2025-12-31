@@ -8,6 +8,14 @@
 \description{
 Format R files using the 'Air' formatter.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/DavisVaughan/air-r}
+  \item Report bugs at \url{https://github.com/DavisVaughan/air-r/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Davis Vaughan \email{davis@posit.co}
 
