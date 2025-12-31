@@ -10,6 +10,8 @@ Description: Format R files using the 'Air' formatter.
 License: MIT + file LICENSE
 URL: https://github.com/DavisVaughan/air-r
 BugReports: https://github.com/DavisVaughan/air-r/issues
+Depends:
+    R (>= 4.1.0)
 Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
