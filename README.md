@@ -14,7 +14,7 @@ status](https://www.r-pkg.org/badges/version/air)](https://CRAN.R-project.org/pa
 coverage](https://codecov.io/gh/DavisVaughan/air-r/graph/badge.svg)](https://app.codecov.io/gh/DavisVaughan/air-r)
 <!-- badges: end -->
 
-The goal of air is to be an R interface to the
+The air package is an R interface to the
 [Air](https://posit-dev.github.io/air/) R code formatter.
 
 It currently does not have any features.
