@@ -1,3 +1,0 @@
-dummy <- function() {
-  NULL
-}
