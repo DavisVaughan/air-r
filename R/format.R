@@ -1,54 +1,51 @@
 format_text <- function(
   text,
   ...,
-  file = NULL,
   version = NULL
 ) {
   check_dots_empty0(...)
 
-  if (is.null(file)) {
-    # Process is launched from current working directory, so it is
-    # `${pwd}/dummy.R` for configuration search purposes. Always want to force
-    # it, since `dummy.R` is just a side effect of how we have to call it.
-    file <- "dummy.R"
-    force <- "--force"
-  } else {
-    force <- NULL
-  }
+  check_string(text)
+  check_string(version, allow_null = TRUE)
 
-  args <- c(
-    "format",
-    "--stdin-file-path",
-    file,
-    force
-  )
+  # TODO!: Use `--isolated` when implemented.
+  # We always want `format_text()` to use predictable defaults.
+  # For anything more complicated, write to your project's file system
+  # and use `format_file()`.
 
   result <- air_run(
     command = air_path(version = version),
-    args = args,
+    args = c(
+      "format",
+      "--stdin-file-path",
+      "dummy.R"
+    ),
     stdin = text
   )
 
-  if (result$status != 0L) {
-    if (!is.null(result$stderr)) {
-      bullet <- paste0(
-        "Reported error:\n\n",
-        "```\n",
-        result$stderr,
-        "```"
-      )
-    } else {
-      bullet <- NULL
-    }
-
-    abort(c(
-      "Can't format text.",
-      i = bullet
-    ))
-  }
+  check_status("Can't format text.", result$status, result$stderr)
 
   result$stdout
 }
 
 # TODO
 format_file <- function() {}
+
+check_status <- function(message, status, stderr, error_call = caller_env()) {
+  if (status == 0L) {
+    return(invisible())
+  }
+
+  if (!is.null(stderr)) {
+    bullet <- paste0(
+      "Reported error:\n\n",
+      "```\n",
+      stderr,
+      "```"
+    )
+  } else {
+    bullet <- NULL
+  }
+
+  abort(c(message, i = bullet), call = error_call)
+}
