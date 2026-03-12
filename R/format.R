@@ -28,8 +28,30 @@ format_text <- function(
   result$stdout
 }
 
-# TODO
-format_file <- function() {}
+format_file <- function(
+  path,
+  ...,
+  version = NULL
+) {
+  check_dots_empty0(...)
+
+  check_string(path)
+  check_string(version, allow_null = TRUE)
+
+  path <- normalizePath(path, mustWork = FALSE)
+
+  result <- air_run(
+    command = air_path(version = version),
+    args = c(
+      "format",
+      path
+    )
+  )
+
+  check_status("Can't format file.", result$status, result$stderr)
+
+  invisible()
+}
 
 check_status <- function(message, status, stderr, error_call = caller_env()) {
   if (status == 0L) {
