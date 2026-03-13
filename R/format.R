@@ -1,12 +1,5 @@
-format_text <- function(
-  text,
-  ...,
-  version = NULL
-) {
-  check_dots_empty0(...)
-
+format_text <- function(text) {
   check_string(text)
-  check_string(version, allow_null = TRUE)
 
   # TODO!: Use `--isolated` when implemented.
   # We always want `format_text()` to use predictable defaults.
@@ -14,7 +7,7 @@ format_text <- function(
   # and use `format_file()`.
 
   result <- air_run(
-    command = air_path(version = version),
+    command = air_path(),
     args = c(
       "format",
       "--stdin-file-path",
@@ -28,20 +21,14 @@ format_text <- function(
   result$stdout
 }
 
-format_file <- function(
-  path,
-  ...,
-  version = NULL
-) {
-  check_dots_empty0(...)
-
+format_file <- function(path) {
   check_string(path)
-  check_string(version, allow_null = TRUE)
 
+  # TODO: Maybe pre check that the file exists?
   path <- normalizePath(path, mustWork = FALSE)
 
   result <- air_run(
-    command = air_path(version = version),
+    command = air_path(),
     args = c(
       "format",
       path
